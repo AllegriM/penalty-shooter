@@ -1,0 +1,44 @@
+﻿  Jugador.cpp
+C:\Users\Daniel Guillen\Desktop\JuegoSoccerProyecto\JuegoSoccer\JuegoSoccer\Jugador.cpp(5,114): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Daniel Guillen\Desktop\JuegoSoccerProyecto\JuegoSoccer\JuegoSoccer\Jugador.cpp(5,91): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Daniel Guillen\Desktop\JuegoSoccerProyecto\JuegoSoccer\JuegoSoccer\Jugador.cpp(5,68): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Daniel Guillen\Desktop\JuegoSoccerProyecto\JuegoSoccer\JuegoSoccer\Jugador.cpp(5,64): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Daniel Guillen\Desktop\JuegoSoccerProyecto\JuegoSoccer\JuegoSoccer\Jugador.cpp(41,149): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Daniel Guillen\Desktop\JuegoSoccerProyecto\JuegoSoccer\JuegoSoccer\Jugador.cpp(41,122): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Daniel Guillen\Desktop\JuegoSoccerProyecto\JuegoSoccer\JuegoSoccer\Jugador.cpp(41,95): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\Daniel Guillen\Desktop\JuegoSoccerProyecto\JuegoSoccer\JuegoSoccer\Jugador.cpp(41,69): warning C4244: 'argument': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+  JuegoSoccer.vcxproj -> C:\Users\Daniel Guillen\Desktop\JuegoSoccerProyecto\JuegoSoccer\x64\Debug\JuegoSoccer.exe
+  C:\Users\Daniel Guillen\Desktop\JuegoSoccerProyecto\JuegoSoccer\packages\SFML-cpp.redist.2.5.1.1\build\native\bin\x64\Debug\openal32.dll
+  1 archivo(s) copiado(s)
