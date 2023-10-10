@@ -1,4 +1,5 @@
 #include "pelota.h"
+#include <cmath>
 
 Pelota::Pelota()
 {
@@ -6,11 +7,14 @@ Pelota::Pelota()
     _velocity = {10, 10};
     _texture.loadFromFile("pelota.png");
     _sprite.setTexture(_texture);
-    _sprite.setOrigin(28, 28);
+    //Que la pelota arranque en el centro de la pantalla
+    _sprite.setPosition(580, 700);
+    
 };
 
 void Pelota::update()
 {
+    // Dependiendo la tecla que toque se le asigna una direccion a la pelota
     _velocity = {0, 0};
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -53,4 +57,36 @@ void Pelota::update()
 void Pelota::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
     target.draw(_sprite, states);
+};
+
+// Dependiendo la tecla que se presione, la pelota se mueve hasta una direccion
+// Si apreto 7, la pelota se mueve hacia el arco arriba a la izquierda y no para hasta llegar a el
+
+void Pelota::move(){
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad7))
+    {
+        // Ir a la posicion del arco de arriba a la izquierda con una animacion de movimiento
+        _sprite.setPosition(350, 150);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
+    {
+        _sprite.setPosition(350, 350);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad9))
+    {
+        _sprite.setPosition(800, 150);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3))
+    {
+        _sprite.setPosition(800, 350);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad8))
+    {
+        _sprite.setPosition(570, 150);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2))
+    {
+        _sprite.setPosition(570, 350);
+    }
 };

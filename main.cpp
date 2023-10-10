@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "pelota.h"
 #include "Arco.h"
+#include "Instrucciones.h"
 
 int main()
 {
@@ -10,7 +11,7 @@ int main()
    
     Pelota bocha;
     Arco arco;
-   
+    Instrucciones instrucciones;
 
     // Game loop( update del juego)
     while (window.isOpen())
@@ -29,24 +30,22 @@ int main()
 
        
         //Update actualiza los estados del juego
-        
-        bocha.update();
+
+        bocha.move();
 
         window.clear();
        
         // Draw
-       
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
+            window.draw(instrucciones);
+        }
         window.draw(arco);
         window.draw(bocha);
-      
-        
 
         //display - flip
 
         window.display();
          
-
-       
     }
 
     //liberacion del juego
