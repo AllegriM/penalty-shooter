@@ -34,6 +34,7 @@ int main()
         portero.movimientoTecladoArquero();
         portero.getPosicionObjeto();
         pateador.movimientoDelPateador();
+        balon.disparo();
         //balon.update();
 
 
@@ -42,7 +43,7 @@ int main()
         nuevaCancha.draw(window);
         portero.draw(window);
         balon.draw(window);
-        pateador.draw(window);
+        window.draw(pateador);
         window.display();
         
     }

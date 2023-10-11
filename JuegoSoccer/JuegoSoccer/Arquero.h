@@ -8,6 +8,7 @@ class Arquero {
     int _velocidad = 5;
     sf::Sprite Sprite_Arquero;
     sf::Texture Texture_Arquero;
+    sf::Vector2f movimientoAleatorio;
 
 
 

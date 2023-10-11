@@ -12,6 +12,7 @@ class Pelota
 public:
 	Pelota();
 	void update();
+	void disparo();
 	//void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void draw(sf::RenderWindow&);
 };
