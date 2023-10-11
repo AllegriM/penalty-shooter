@@ -1,7 +1,7 @@
 #pragma once
 #include <cstring>
 #include "SFML/Graphics.hpp"
-class Jugador
+class Jugador: public sf::Drawable
 {
 	sf::Sprite Spriter_Pateador;
 	sf::Texture Texture_Pateador;
@@ -15,7 +15,7 @@ public:
 
 	//void setNombre(const char *nombre);
 //	void setApellido(const char *apellido);
-	void draw(sf::RenderWindow&);
+	void draw(sf::RenderTarget&, sf::RenderStates states) const override;
 	void movimientoDelPateador();
 	void getPosicionPateador();
 };

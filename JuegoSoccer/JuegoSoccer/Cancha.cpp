@@ -1,7 +1,8 @@
 #include "Cancha.h"
 Cancha::Cancha() {
-    Texture_Cancha.loadFromFile("./imagenes/CanchaDeGoles.png");
+    Texture_Cancha.loadFromFile("imagenes/CanchaDeGoles.png");
     Sprite_Cancha.setTexture(Texture_Cancha);
+
 
 
 }
