@@ -34,7 +34,9 @@ int main()
         portero.movimientoTecladoArquero();
         portero.getPosicionObjeto();
         pateador.movimientoDelPateador();
+       
         balon.disparo();
+      
         //balon.update();
 
 

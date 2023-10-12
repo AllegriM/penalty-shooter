@@ -8,6 +8,8 @@ class Pelota
 	sf::Sprite _sprite;
 	sf::Texture _texture;
 	sf::Vector2f _velocity;
+	bool mover = false;
+	float potencia = 2.0f;
 
 public:
 	Pelota();
