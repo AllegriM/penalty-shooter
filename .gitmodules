@@ -1,0 +1,4 @@
+[submodule "penalty-shooter"]
+    path = penalty-shooter
+    url = https://github.com/AllegriM/penalty-shooter
+
