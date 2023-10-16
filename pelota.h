@@ -25,7 +25,7 @@ class Pelota
 	bool BanderaCronometro = false;
 	float aux = 0.0, maximoPosicionX = 0.0;
 	float posicionX, posicionY;
-	bool _tiroEfectuado = false;
+	bool _tiroEfectuado = false, tiroEnProceso = false;
 	char _direccion;
 	bool freno = false;
 

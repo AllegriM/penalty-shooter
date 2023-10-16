@@ -3,6 +3,7 @@
 const int ZONAS_DE_POTENCIA = 166;
 const int POS_INICIAL_PELOTA_Y = 500;
 const int POS_INICIAL_PELOTA_X = 600;
+const int MAXIMO_CONTADOR_POTENCIADOR = 90;
 
 Pelota::Pelota()
 {
@@ -49,8 +50,8 @@ float Pelota::calcularPotencia()
         
     BanderaCronometro = false;
 
-    if (contador >= 90) {
-        contador = 90;
+    if (contador >= MAXIMO_CONTADOR_POTENCIADOR) {
+        contador = MAXIMO_CONTADOR_POTENCIADOR;
     }
 
     if (contador > 0) {
@@ -64,8 +65,8 @@ void Pelota::reiniciarDisparo()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
     {
-        posicionX = 600;
-        posicionY = 500;
+        posicionX = POS_INICIAL_PELOTA_X;
+        posicionY = POS_INICIAL_PELOTA_Y;
         _sprite.setPosition(posicionX, posicionY);
 
         _positionInitial = true;
@@ -75,6 +76,7 @@ void Pelota::reiniciarDisparo()
         aux = 0.0;
         maximoPosicionX = 0;
         freno = false;
+        tiroEnProceso = false;
     }
 }
 
@@ -105,9 +107,10 @@ void Pelota::disparo(){
     float potencia = calcularPotencia();
     cargarPotenciador(potencia);
     // DISPARO ARRIBA MEDIO
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !tiroEnProceso) {
         _tiroEfectuado = true;
         _direccion = 'W';
+        tiroEnProceso = true;
     }
     
     if (_tiroEfectuado && _direccion == 'W'){
@@ -117,29 +120,32 @@ void Pelota::disparo(){
     }
 
     // DISPARO ARRIBA DERECHA
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !tiroEnProceso) {
         _tiroEfectuado = true;
         _direccion = 'E';
+        tiroEnProceso = true;
     }
 
     if (_tiroEfectuado && _direccion == 'E'){
-        curvaDisparo(potencia, 4);
+        curvaDisparo(potencia, 5);
     }
 
     // DISPARO ARRIBA IZQUIERDA
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !tiroEnProceso) {
         _tiroEfectuado = true;
         _direccion = 'Q';
+        tiroEnProceso = true;
     }
 
     if (_tiroEfectuado && _direccion == 'Q'){
-        curvaDisparo(potencia, -4);
+        curvaDisparo(potencia, -5);
     }
 
     // DISPARO ABAJO MEDIO
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !tiroEnProceso) {
         _tiroEfectuado = true;
         _direccion = 'S';
+        tiroEnProceso = true;
     }
 
     if (_tiroEfectuado && _direccion == 'S')
@@ -149,25 +155,27 @@ void Pelota::disparo(){
     }
 
     // DISPARO ABAJO DERECHA
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !tiroEnProceso) {
         _tiroEfectuado = true;
         _direccion = 'D';
+        tiroEnProceso = true;
     }
 
     if (_tiroEfectuado && _direccion == 'D')
     {
-        curvaDisparo(potencia, 4);
+        curvaDisparo(potencia, 5);
     }
 
     // DISPARO ABAJO IZQUIERDA
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !tiroEnProceso) {
         _tiroEfectuado = true;
         _direccion = 'A';
+        tiroEnProceso = true;
     }
 
     if (_tiroEfectuado && _direccion == 'A')
     {
-        curvaDisparo(potencia, -4);
+        curvaDisparo(potencia, -5);
     }
 }
 
