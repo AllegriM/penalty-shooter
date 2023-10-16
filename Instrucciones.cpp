@@ -1,11 +1,14 @@
 #include "Instrucciones.h"
 
 Instrucciones::Instrucciones(){
-    _texture.loadFromFile("instrucciones.png");
+    _texture.loadFromFile("imagenes/instrucciones.png");
     _sprite.setTexture(_texture);
-    _sprite.setPosition(600, 480);
+    _sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height / 2);
+    _sprite.setPosition(600, 300);
+    _sprite.setScale(0.6,0.6);
+
 }
 
-void Instrucciones::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-	target.draw(_sprite, states);
+void Instrucciones::draw(sf::RenderWindow& window){
+    window.draw(_sprite);
 };

@@ -3,6 +3,8 @@
 #include "Cancha.h"
 #include "Pelota.h"
 #include "Jugador.h"
+#include "Instrucciones.h"
+
 int main()
 {
     //resolucion
@@ -14,6 +16,8 @@ int main()
     Jugador pateador;
     Cancha nuevaCancha;
     Pelota balon;
+    Instrucciones instrucc;
+
     float auxiliar2 = 0.0;
     //Game Loop (Update del juego)
     while (window.isOpen())
@@ -39,22 +43,18 @@ int main()
         portero.movimientoTecladoArquero();
         portero.getPosicionObjeto();
         balon.reiniciarDisparo();
-        /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            balon.cronometro();
-
-            auxiliar2 = balon.cronometro();
-        }
-        balon.disparo(auxiliar2);*/
         balon.disparo();
-        //balon.disparoRectoArriba();
-        //balon.disparoAnguloSuperiorDerecho();
 
 
         window.clear();
 
+
         nuevaCancha.draw(window);
         portero.draw(window);
         balon.draw(window);
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
+            instrucc.draw(window);
+        }
         //   window.draw(pateador);
         window.display();
 
