@@ -1,54 +1,64 @@
 #include <SFML/Graphics.hpp>
-#include "pelota.h"
-#include "Arco.h"
-#include "Instrucciones.h"
-
+#include "Arquero.h"
+#include "Cancha.h"
+#include "Pelota.h"
+#include "Jugador.h"
 int main()
 {
-    //inicializar la ventana
-    sf::RenderWindow window(sf::VideoMode(1200, 960), "Penalty24!");
-    window.setFramerateLimit(120);
-   
-    Pelota bocha;
-    Arco arco;
-    Instrucciones instrucciones;
+    //resolucion
+    sf::RenderWindow window(sf::VideoMode(1200, 600), "FullBall Soccer");
+    window.setFramerateLimit(60);
 
-    // Game loop( update del juego)
+
+    Arquero portero;
+    Jugador pateador;
+    Cancha nuevaCancha;
+    Pelota balon;
+    float auxiliar2 = 0.0;
+    //Game Loop (Update del juego)
     while (window.isOpen())
     {
-        //read imput( actualizar los estados de los perifericos de entrada
-        //leer la cola de mens
-
         sf::Event event;
         while (window.pollEvent(event))
         {
-            
-            
-           if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed) {
                 window.close();
+            }
+            //else if (event.type == sf::Event::KeyPressed) {
+                /*if (event.key.code == sf::Keyboard::W) {
+                    balon.disparoRectoArriba();
+                }
+                else if (event.key.code == sf::Keyboard::E) {
+                    balon.disparoAnguloSuperiorDerecho();
+                }*/
+            //}
         }
 
-       
-        //Update actualiza los estados del juego
 
-        bocha.move();
+
+        portero.movimientoTecladoArquero();
+        portero.getPosicionObjeto();
+        balon.reiniciarDisparo();
+        /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            balon.cronometro();
+
+            auxiliar2 = balon.cronometro();
+        }
+        balon.disparo(auxiliar2);*/
+        balon.disparo();
+        //balon.disparoRectoArriba();
+        //balon.disparoAnguloSuperiorDerecho();
+
 
         window.clear();
-       
-        // Draw
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::I)){
-            window.draw(instrucciones);
-        }
-        window.draw(arco);
-        window.draw(bocha);
 
-        //display - flip
-
+        nuevaCancha.draw(window);
+        portero.draw(window);
+        balon.draw(window);
+        //   window.draw(pateador);
         window.display();
-         
+
     }
-
     //liberacion del juego
-
     return 0;
 }
