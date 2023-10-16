@@ -93,7 +93,7 @@ void Pelota::curvaDisparo(float potencia, float movimientoX){
     }
 
     // Posicion de la pelota en Y es mayor a 600 - 1.5 * 200
-    if(posicionY > 600 - potencia * ZONAS_DE_POTENCIA){
+    if(posicionY > 500 - potencia * ZONAS_DE_POTENCIA){
         posicionY = -0.008f * ((posicionX - POS_INICIAL_PELOTA_X) * (posicionX - POS_INICIAL_PELOTA_X)) + POS_INICIAL_PELOTA_Y;
         posicionX = maximoPosicionX;
         freno = false;
