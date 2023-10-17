@@ -30,6 +30,23 @@ Pelota::Pelota()
     cargaPotencia.setFillColor(sf::Color::Red);
 }
 
+bool Pelota::verificarGol(){
+    // VERIFICO EL BORDE IZQUIERDO
+    // Posicion en X es el centro, necesito el borde izquierdo
+    // Borde de la pelota => posicion + _sprite.getGlobalBounds().MEDIDA / 2
+
+    /* ================= FALTARIA AGREGAR CUANDO ES GOL Y CUANDO NO ================= */
+    if (posicionX - _sprite.getGlobalBounds().width / 2 > BORDE_ARCO_IZQUIERDO && 
+        posicionY - _sprite.getGlobalBounds().height / 2 > BORDE_ARCO_SUPERIOR && 
+        posicionX + _sprite.getGlobalBounds().width / 2  < BORDE_ARCO_DERECHO &&
+        posicionY + _sprite.getGlobalBounds().height / 2 < BORDE_ARCO_INFERIOR){
+        resultadoPenal = true;
+        return true;
+    }
+    resultadoPenal = false;
+    return false;    
+}
+
 void Pelota::cargarPotenciador(float potencia){
     // TOTAL DEL RECTANGULO 150
     // MAXIMO POTENCIA 3
@@ -177,7 +194,18 @@ void Pelota::disparo(){
     {
         curvaDisparo(potencia, -5);
     }
+
+    if(freno && tiroEnProceso){
+        bool estadoPenal = verificarGol();
+        if(estadoPenal){
+            std::cout << "GOL!" << std::endl;
+        }else{
+            std::cout << "AFUERA!" << std::endl;
+        }
+    }
 }
+    
+
 
 void Pelota::draw(sf::RenderWindow& window)
 {

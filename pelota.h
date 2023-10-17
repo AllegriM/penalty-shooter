@@ -18,8 +18,9 @@ class Pelota
 	sf::Texture _texture;
 	sf::Vector2f _velocity;
 	const int BORDE_ARCO_IZQUIERDO = 400;
-	const int BORDE_ARCO_DERECHO = 800;
-	const int BORDE_ARCO_SUPERIOR = 210 - _sprite.getGlobalBounds().height / 2;
+	const int BORDE_ARCO_DERECHO = 795;
+	const int BORDE_ARCO_SUPERIOR = 215 - _sprite.getGlobalBounds().height / 2;
+	const int BORDE_ARCO_INFERIOR = 390;
 	bool _positionInitial = true;
 	float contador;
 	bool BanderaCronometro = false;
@@ -27,7 +28,8 @@ class Pelota
 	float posicionX, posicionY;
 	bool _tiroEfectuado = false, tiroEnProceso = false;
 	char _direccion;
-	bool freno = false;
+	bool freno = false, resultadoPenal = false;
+
 
 public:
 	Pelota();
@@ -38,4 +40,5 @@ public:
 	void draw(sf::RenderWindow&);
 	void reiniciarDisparo();
 	float calcularPotencia();
+	bool verificarGol();
 };
