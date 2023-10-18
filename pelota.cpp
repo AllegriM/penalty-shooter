@@ -54,12 +54,13 @@ void Pelota::cargarPotenciador(float potencia){
     // 2.5 -> x:
     // std::cout << "PORCENTAJE BARRA: " << (potencia * 150) / 3 << std::endl;
     cargaPotencia.setSize(sf::Vector2f((potencia * 150) / 3, 15.f));
-    cargaPotencia.setFillColor(sf::Color::Red);
+    cargaPotencia.setFillColor(sf::Color::Red);        
 }
 
 float Pelota::calcularPotencia()
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !tiroEnProceso){
         BanderaCronometro = true;
         //sleep_for(milliseconds(50));
         contador++;
@@ -87,7 +88,7 @@ void Pelota::reiniciarDisparo()
         _sprite.setPosition(posicionX, posicionY);
 
         _positionInitial = true;
-        _tiroEfectuado = false;
+        tiroFinalizado = false;
         _direccion = ' ';
         contador = 0.0;
         aux = 0.0;
@@ -125,12 +126,11 @@ void Pelota::disparo(){
     cargarPotenciador(potencia);
     // DISPARO ARRIBA MEDIO
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !tiroEnProceso) {
-        _tiroEfectuado = true;
         _direccion = 'W';
         tiroEnProceso = true;
     }
     
-    if (_tiroEfectuado && _direccion == 'W'){
+    if (tiroEnProceso && _direccion == 'W'){
         if (posicionY > 600 - potencia * ZONAS_DE_POTENCIA){
             posicionY -= (10 + potencia);
         }
@@ -138,34 +138,31 @@ void Pelota::disparo(){
 
     // DISPARO ARRIBA DERECHA
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !tiroEnProceso) {
-        _tiroEfectuado = true;
         _direccion = 'E';
         tiroEnProceso = true;
     }
 
-    if (_tiroEfectuado && _direccion == 'E'){
+    if (tiroEnProceso && _direccion == 'E'){
         curvaDisparo(potencia, 5);
     }
 
     // DISPARO ARRIBA IZQUIERDA
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !tiroEnProceso) {
-        _tiroEfectuado = true;
         _direccion = 'Q';
         tiroEnProceso = true;
     }
 
-    if (_tiroEfectuado && _direccion == 'Q'){
+    if (tiroEnProceso && _direccion == 'Q'){
         curvaDisparo(potencia, -5);
     }
 
     // DISPARO ABAJO MEDIO
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !tiroEnProceso) {
-        _tiroEfectuado = true;
         _direccion = 'S';
         tiroEnProceso = true;
     }
 
-    if (_tiroEfectuado && _direccion == 'S')
+    if (tiroEnProceso && _direccion == 'S')
     {
         if(posicionY > 360 && posicionY > 600 - potencia * ZONAS_DE_POTENCIA)
         posicionY -= (10 + potencia);
@@ -173,24 +170,22 @@ void Pelota::disparo(){
 
     // DISPARO ABAJO DERECHA
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !tiroEnProceso) {
-        _tiroEfectuado = true;
         _direccion = 'D';
         tiroEnProceso = true;
     }
 
-    if (_tiroEfectuado && _direccion == 'D')
+    if (tiroEnProceso && _direccion == 'D')
     {
         curvaDisparo(potencia, 5);
     }
 
     // DISPARO ABAJO IZQUIERDA
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !tiroEnProceso) {
-        _tiroEfectuado = true;
         _direccion = 'A';
         tiroEnProceso = true;
     }
 
-    if (_tiroEfectuado && _direccion == 'A')
+    if (tiroEnProceso && _direccion == 'A')
     {
         curvaDisparo(potencia, -5);
     }
