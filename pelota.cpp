@@ -1,7 +1,7 @@
 #include "pelota.h"
 
 const int ZONAS_DE_POTENCIA = 166;
-const int POS_INICIAL_PELOTA_Y = 500;
+const int POS_INICIAL_PELOTA_Y = 760;
 const int POS_INICIAL_PELOTA_X = 600;
 const int MAXIMO_CONTADOR_POTENCIADOR = 90;
 
@@ -14,7 +14,7 @@ Pelota::Pelota()
     posicionX = POS_INICIAL_PELOTA_X;
     posicionY = POS_INICIAL_PELOTA_Y;
     _sprite.setPosition(posicionX, posicionY);
-    _sprite.setScale(0.5,0.5);
+    _sprite.setScale(0.15,0.15);
     contador = 0.0;
 
     // Potenciador
@@ -100,7 +100,7 @@ void Pelota::reiniciarDisparo()
 
 void Pelota::curvaDisparo(float potencia, float movimientoX){
     // y=−0.008f⋅((posicionX−600.0f) 2)+500.0f => La funcion cuadratica que genera la curva
-    // -0.008F curva 
+    // -0.008F parabola amplitud 
     if(movimientoX < 0 && !freno){
         posicionX += (movimientoX - potencia);
         maximoPosicionX = posicionX;
@@ -111,8 +111,13 @@ void Pelota::curvaDisparo(float potencia, float movimientoX){
     }
 
     // Posicion de la pelota en Y es mayor a 600 - 1.5 * 200
+
+    // A modo visualizacion de la parabola valor -0,004f amplitud ancha para el tiro abajo
+    // A modo visualizacion de la parabola valor -0,008f amplitud angosta para el tiro arriba
+
     if(posicionY > 500 - potencia * ZONAS_DE_POTENCIA){
-        posicionY = -0.008f * ((posicionX - POS_INICIAL_PELOTA_X) * (posicionX - POS_INICIAL_PELOTA_X)) + POS_INICIAL_PELOTA_Y;
+        //Funcion cuadratica 
+        posicionY = -0.014f * ((posicionX - POS_INICIAL_PELOTA_X) * (posicionX - POS_INICIAL_PELOTA_X)) + POS_INICIAL_PELOTA_Y;
         posicionX = maximoPosicionX;
         freno = false;
     }else{
@@ -209,5 +214,3 @@ void Pelota::draw(sf::RenderWindow& window)
     window.draw(cargaPotencia);
     window.draw(_sprite);
 }
-
-

@@ -8,7 +8,7 @@
 int main()
 {
     //resolucion
-    sf::RenderWindow window(sf::VideoMode(1200, 600), "FullBall Soccer");
+    sf::RenderWindow window(sf::VideoMode(1200, 800), "FullBall Soccer");
     window.setFramerateLimit(60);
 
 
