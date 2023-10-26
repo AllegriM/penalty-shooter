@@ -1,7 +1,7 @@
 #include "pelota.h"
 
 const int ZONAS_DE_POTENCIA = 166;
-const int POS_INICIAL_PELOTA_Y = 760;
+const int POS_INICIAL_PELOTA_Y = 730;
 const int POS_INICIAL_PELOTA_X = 600;
 const int MAXIMO_CONTADOR_POTENCIADOR = 90;
 
@@ -14,7 +14,6 @@ Pelota::Pelota()
     posicionX = POS_INICIAL_PELOTA_X;
     posicionY = POS_INICIAL_PELOTA_Y;
     _sprite.setPosition(posicionX, posicionY);
-    _sprite.setScale(0.15,0.15);
     contador = 0.0;
 
     // Potenciador
@@ -30,49 +29,55 @@ Pelota::Pelota()
     cargaPotencia.setFillColor(sf::Color::Red);
 }
 
-bool Pelota::verificarGol(){
+bool Pelota::verificarGol()
+{
     // VERIFICO EL BORDE IZQUIERDO
     // Posicion en X es el centro, necesito el borde izquierdo
     // Borde de la pelota => posicion + _sprite.getGlobalBounds().MEDIDA / 2
 
     /* ================= FALTARIA AGREGAR CUANDO ES GOL Y CUANDO NO ================= */
-    if (posicionX - _sprite.getGlobalBounds().width / 2 > BORDE_ARCO_IZQUIERDO && 
-        posicionY - _sprite.getGlobalBounds().height / 2 > BORDE_ARCO_SUPERIOR && 
-        posicionX + _sprite.getGlobalBounds().width / 2  < BORDE_ARCO_DERECHO &&
-        posicionY + _sprite.getGlobalBounds().height / 2 < BORDE_ARCO_INFERIOR){
+    if (posicionX - _sprite.getGlobalBounds().width / 2 > BORDE_ARCO_IZQUIERDO &&
+        posicionY - _sprite.getGlobalBounds().height / 2 > BORDE_ARCO_SUPERIOR &&
+        posicionX + _sprite.getGlobalBounds().width / 2 < BORDE_ARCO_DERECHO &&
+        posicionY + _sprite.getGlobalBounds().height / 2 < BORDE_ARCO_INFERIOR)
+    {
         resultadoPenal = true;
         return true;
     }
     resultadoPenal = false;
-    return false;    
+    return false;
 }
 
-void Pelota::cargarPotenciador(float potencia){
+void Pelota::cargarPotenciador(float potencia)
+{
     // TOTAL DEL RECTANGULO 150
     // MAXIMO POTENCIA 3
     // 3 -> 150
     // 2.5 -> x:
     // std::cout << "PORCENTAJE BARRA: " << (potencia * 150) / 3 << std::endl;
     cargaPotencia.setSize(sf::Vector2f((potencia * 150) / 3, 15.f));
-    cargaPotencia.setFillColor(sf::Color::Red);        
+    cargaPotencia.setFillColor(sf::Color::Red);
 }
 
 float Pelota::calcularPotencia()
 {
-    
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !tiroEnProceso){
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !tiroEnProceso)
+    {
         BanderaCronometro = true;
-        //sleep_for(milliseconds(50));
+        // sleep_for(milliseconds(50));
         contador++;
     }
-        
+
     BanderaCronometro = false;
 
-    if (contador >= MAXIMO_CONTADOR_POTENCIADOR) {
+    if (contador >= MAXIMO_CONTADOR_POTENCIADOR)
+    {
         contador = MAXIMO_CONTADOR_POTENCIADOR;
     }
 
-    if (contador > 0) {
+    if (contador > 0)
+    {
         aux = contador;
     }
 
@@ -86,7 +91,7 @@ void Pelota::reiniciarDisparo()
         posicionX = POS_INICIAL_PELOTA_X;
         posicionY = POS_INICIAL_PELOTA_Y;
         _sprite.setPosition(posicionX, posicionY);
-
+        _sprite.setScale(1, 1);
         _positionInitial = true;
         tiroFinalizado = false;
         _direccion = ' ';
@@ -98,14 +103,31 @@ void Pelota::reiniciarDisparo()
     }
 }
 
-void Pelota::curvaDisparo(float potencia, float movimientoX){
+void Pelota::escalaPelota()
+{
+    float posicionPelotaY = _sprite.getPosition().y;
+    if (posicionPelotaY > 390)
+    {
+        float x = (posicionPelotaY - 315) / 404;
+        float y = (posicionPelotaY - 315) / 404;
+        std::cout << "ESCALA X/Y: " << y << std::endl;
+        std::cout << "POSICION PELOTA: " << posicionPelotaY << std::endl;
+        // _sprite.move(-_velocity);
+        _sprite.setScale(x, y);
+    }
+}
+
+void Pelota::curvaDisparo(float potencia, float movimientoX)
+{
     // y=−0.008f⋅((posicionX−600.0f) 2)+500.0f => La funcion cuadratica que genera la curva
-    // -0.008F parabola amplitud 
-    if(movimientoX < 0 && !freno){
+    // -0.008F parabola amplitud
+    if (movimientoX < 0 && !freno)
+    {
         posicionX += (movimientoX - potencia);
         maximoPosicionX = posicionX;
     }
-    if (movimientoX > 0 && !freno){
+    if (movimientoX > 0 && !freno)
+    {
         posicionX += (movimientoX + potencia);
         maximoPosicionX = posicionX;
     }
@@ -115,66 +137,89 @@ void Pelota::curvaDisparo(float potencia, float movimientoX){
     // A modo visualizacion de la parabola valor -0,004f amplitud ancha para el tiro abajo
     // A modo visualizacion de la parabola valor -0,008f amplitud angosta para el tiro arriba
 
-    if(posicionY > 500 - potencia * ZONAS_DE_POTENCIA){
-        //Funcion cuadratica 
+    if (posicionY > 500 - potencia * 166)
+    {
+        // Funcion cuadratica
         posicionY = -0.014f * ((posicionX - POS_INICIAL_PELOTA_X) * (posicionX - POS_INICIAL_PELOTA_X)) + POS_INICIAL_PELOTA_Y;
         posicionX = maximoPosicionX;
         freno = false;
-    }else{
+        escalaPelota();
+    }
+    else
+    {
         freno = true;
     }
 }
 
-void Pelota::disparo(){
+void Pelota::disparo()
+{
 
     float potencia = calcularPotencia();
     cargarPotenciador(potencia);
     // DISPARO ARRIBA MEDIO
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !tiroEnProceso) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !tiroEnProceso)
+    {
         _direccion = 'W';
         tiroEnProceso = true;
     }
-    
-    if (tiroEnProceso && _direccion == 'W'){
-        if (posicionY > 600 - potencia * ZONAS_DE_POTENCIA){
+
+    if (tiroEnProceso && _direccion == 'W')
+    {
+        if (posicionY > 600 - potencia * ZONAS_DE_POTENCIA)
+        {
             posicionY -= (10 + potencia);
+            float posicionPelotaY = _sprite.getPosition().y;
+            if (posicionPelotaY > 390)
+            {
+                float x = (posicionPelotaY - 315.88) / 404.11;
+                float y = (posicionPelotaY - 315.88) / 404.11;
+                std::cout << posicionPelotaY << std::endl;
+                // _sprite.move(-_velocity);
+                _sprite.setScale(x, y);
+            }
         }
     }
 
     // DISPARO ARRIBA DERECHA
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !tiroEnProceso) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && !tiroEnProceso)
+    {
         _direccion = 'E';
         tiroEnProceso = true;
     }
 
-    if (tiroEnProceso && _direccion == 'E'){
+    if (tiroEnProceso && _direccion == 'E')
+    {
         curvaDisparo(potencia, 5);
     }
 
     // DISPARO ARRIBA IZQUIERDA
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !tiroEnProceso) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q) && !tiroEnProceso)
+    {
         _direccion = 'Q';
         tiroEnProceso = true;
     }
 
-    if (tiroEnProceso && _direccion == 'Q'){
+    if (tiroEnProceso && _direccion == 'Q')
+    {
         curvaDisparo(potencia, -5);
     }
 
     // DISPARO ABAJO MEDIO
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !tiroEnProceso) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !tiroEnProceso)
+    {
         _direccion = 'S';
         tiroEnProceso = true;
     }
 
     if (tiroEnProceso && _direccion == 'S')
     {
-        if(posicionY > 360 && posicionY > 600 - potencia * ZONAS_DE_POTENCIA)
-        posicionY -= (10 + potencia);
+        if (posicionY > 360 && posicionY > 600 - potencia * ZONAS_DE_POTENCIA)
+            posicionY -= (10 + potencia);
     }
 
     // DISPARO ABAJO DERECHA
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !tiroEnProceso) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !tiroEnProceso)
+    {
         _direccion = 'D';
         tiroEnProceso = true;
     }
@@ -185,7 +230,8 @@ void Pelota::disparo(){
     }
 
     // DISPARO ABAJO IZQUIERDA
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !tiroEnProceso) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !tiroEnProceso)
+    {
         _direccion = 'A';
         tiroEnProceso = true;
     }
@@ -195,19 +241,21 @@ void Pelota::disparo(){
         curvaDisparo(potencia, -5);
     }
 
-    if(freno && tiroEnProceso){
+    if (freno && tiroEnProceso)
+    {
         bool estadoPenal = verificarGol();
-        if(estadoPenal){
+        if (estadoPenal)
+        {
             std::cout << "GOL!" << std::endl;
-        }else{
+        }
+        else
+        {
             std::cout << "AFUERA!" << std::endl;
         }
     }
 }
-    
 
-
-void Pelota::draw(sf::RenderWindow& window)
+void Pelota::draw(sf::RenderWindow &window)
 {
     _sprite.setPosition(posicionX, posicionY);
     window.draw(potenciador);

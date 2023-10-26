@@ -10,7 +10,7 @@ using namespace std::this_thread;
 using namespace std::chrono;
 class Pelota
 {
-	// Potenciador 
+	// Potenciador
 	sf::RectangleShape potenciador;
 	sf::RectangleShape cargaPotencia;
 	// Pelota
@@ -30,15 +30,15 @@ class Pelota
 	char _direccion;
 	bool freno = false, resultadoPenal = false;
 
-
 public:
 	Pelota();
-	//void disparo(float deltatime);
+	// void disparo(float deltatime);
 	void cargarPotenciador(float potencia);
 	void curvaDisparo(float potencia, float movimientoX);
 	void disparo();
-	void draw(sf::RenderWindow&);
+	void draw(sf::RenderWindow &);
 	void reiniciarDisparo();
 	float calcularPotencia();
+	void escalaPelota();
 	bool verificarGol();
 };
